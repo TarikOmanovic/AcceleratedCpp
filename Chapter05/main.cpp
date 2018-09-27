@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <list>
 #include <algorithm>
 #include <stdexcept>
 
@@ -10,14 +11,14 @@
 #include "student_info.h"
 #include "grade.h"
 
-std::vector<Student_info>
+std::list<Student_info>
 extractFails(
-	std::vector<Student_info>& students);
+	std::list<Student_info>& students);
 
 int
 main()
 {
-	std::vector<Student_info> students;
+	std::list<Student_info> students;
 	Student_info record;
 	std::string::size_type maxlen = 0;
 
@@ -27,12 +28,12 @@ main()
 		students.push_back(record);
 	}
 
-	std::sort(students.begin(), students.end(), compare);
+	students.sort(compare);
 
-	std::vector<Student_info> fails = extractFails(students);
+	std::list<Student_info> fails = extractFails(students);
 
 	//for (std::vector<Student_info>::size_type i = 0; i != students.size(); ++i)
-	for (std::vector<Student_info>::const_iterator s = students.begin(); s != students.end(); ++s)
+	for (std::list<Student_info>::const_iterator s = students.begin(); s != students.end(); ++s)
 	{
 		std::cout << s->name << std::string(maxlen + 1 - s->name.size(), ' ');
 
@@ -53,23 +54,23 @@ main()
 }
 
 
-std::vector<Student_info>
+std::list<Student_info>
 extractFails(
-	std::vector<Student_info>& students)
+	std::list<Student_info>& students)
 {
-	std::vector<Student_info> fails;
-	std::vector<Student_info>::size_type i = 0;
+	std::list<Student_info> fails;
+	std::list<Student_info>::iterator s = students.begin();
 
-	while (i != students.size())
+	while (s != students.end())
 	{
-		if (fgrade(students[i]))
+		if (fgrade(*s))
 		{
-			fails.push_back(students[i]);
-			students.erase(students.begin() + i);
+			fails.push_back(*s);
+			s = students.erase(s);
 		}
 		else
 		{
-			++i;
+			++s;
 		}
 	}
 	return fails;
