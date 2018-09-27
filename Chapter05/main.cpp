@@ -29,14 +29,16 @@ main()
 
 	std::sort(students.begin(), students.end(), compare);
 
-	for (std::vector<Student_info>::size_type i = 0; i != students.size(); ++i)
+	std::vector<Student_info> fails = extractFails(students);
+
+	//for (std::vector<Student_info>::size_type i = 0; i != students.size(); ++i)
+	for (std::vector<Student_info>::const_iterator s = students.begin(); s != students.end(); ++s)
 	{
-		std::cout << students[i].name
-			<< std::string(maxlen + 1 - students[i].name.size(), ' ');
+		std::cout << s->name << std::string(maxlen + 1 - s->name.size(), ' ');
 
 		try
 		{
-			double final_grade = grade(students[i]);
+			double final_grade = grade(*s);
 			std::cout << final_grade;
 		}
 		catch (std::domain_error e)
