@@ -4,30 +4,57 @@
 #include <map>
 #include <algorithm>
 
+std::vector<std::string>
+split(
+	const std::string& str);
+
 std::map<std::string, std::vector<int>>
 xref(
 	std::istream& in,
 	std::vector<std::string> find_words(const std::string&) = split);
 
+//int
+//main()
+//{
+//	std::string s;
+//	std::map<std::string, int> counters;
+//
+//	while (std::cin >> s)
+//	{
+//		++counters[s];
+//	}
+//
+//	for (std::map<std::string, int>::const_iterator i = counters.begin(); i != counters.end(); ++i)
+//	{
+//		std::cout << i->first << "\t" << i->second << std::endl;
+//	}
+//
+//	return 0;
+//}
+
+
 int
 main()
 {
-	std::string s;
-	std::map<std::string, int> counters;
+	std::map<std::string, std::vector<int>> ret = xref(std::cin);
 
-	while (std::cin >> s)
+	for (std::map<std::string, std::vector<int>>::const_iterator it; it != ret.end(); ++it)
 	{
-		++counters[s];
-	}
+		std::cout << it->first << "occurs in line: ";
 
-	for (std::map<std::string, int>::const_iterator i = counters.begin(); i != counters.end(); ++i)
-	{
-		std::cout << i->first << "\t" << i->second << std::endl;
-	}
+		std::vector<int>::const_iterator line_it = it->second.begin();
+		std::cout << *line_it;
 
+		++line_it;
+
+		while (line_it != it->second.end())
+		{
+			std::cout << ", " << *line_it;
+		}
+		std::cout << std::endl;
+	}
 	return 0;
 }
-
 
 bool
 space(
@@ -75,7 +102,7 @@ split(
 std::map<std::string, std::vector<int>>
 xref(
 	std::istream& in,
-	std::vector<std::string> find_words(const std::string&) = split)
+	std::vector<std::string> find_words(const std::string&))
 {
 	std::string line;
 	int line_number = 0;
