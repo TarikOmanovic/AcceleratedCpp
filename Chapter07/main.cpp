@@ -3,7 +3,10 @@
 #include <vector>
 #include <map>
 #include <algorithm>
+#include "grammar.h"
 
+
+#if 0
 std::vector<std::string>
 split(
 	const std::string& str);
@@ -56,6 +59,17 @@ main()
 	return 0;
 }
 
+#endif
+
+int
+main()
+{
+	test_grammar();
+	return 0;
+}
+
+
+#if 0
 bool
 space(
 	char c)
@@ -121,3 +135,5 @@ xref(
 	}
 	return ret;
 }
+
+#endif
