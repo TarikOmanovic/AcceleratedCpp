@@ -101,7 +101,16 @@ Student_info::grade() const
 	return ::grade(midterm, final, homework);
 }
 
-bool Student_info::valid() const
+Student_info::Student_info() : midterm(0.0), final(0.0) {}
+
+
+Student_info::Student_info(std::istream & in)
+{
+	read(in);
+}
+
+bool
+Student_info::valid() const
 {
 	return !homework.empty();
 }
