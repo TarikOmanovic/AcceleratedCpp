@@ -13,19 +13,43 @@ public:
 	Vec() { create(); }
 	explicit Vec(size_type n, const T& val = T()) { create(n, val); }
 
-	size_type size() const { return limit - data; }
+	~Vec() { uncreate(); }
+
+	size_type size() const { return avail - data; }
 	T& operator[] (size_type i) { return data[i]; }
+	const T& operator[] (size_type i) const { return data[i]; }
 	Vec& operator= (const Vec&)
 
 	iterator begin() { return data; }
-	iterator end() { return limit; }
+	iterator end() { return avail; }
 
 	const_iterator begin() const { return data; }
-	const_iterator end() const { return limit; }
+	const_iterator end() const { return avail; }
+
+	void push_back(T& val)
+	{
+		if (avail == limit)
+		{
+			grow();
+		}
+		unchecked_append(val);
+	}
 
 private:
 	iterator data;
+	iterator avail;
 	iterator limit;
+
+	allocator<T> alloc;
+
+	void create();
+	void create(size_type, const T&);
+	void create(const_iterator, const_iterator);
+
+	void uncreate();
+
+	void grow();
+	void unchecked_append(const T&);
 };
 
 template <class T>
