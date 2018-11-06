@@ -1,5 +1,5 @@
 #pragma once
-
+#include <memory>
 
 template <class T> class Vec
 {
@@ -40,7 +40,7 @@ private:
 	iterator avail;
 	iterator limit;
 
-	allocator<T> alloc;
+	std::allocator<T> alloc;
 
 	void create();
 	void create(size_type, const T&);
