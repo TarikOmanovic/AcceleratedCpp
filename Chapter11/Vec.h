@@ -18,7 +18,7 @@ public:
 	size_type size() const { return avail - data; }
 	T& operator[] (size_type i) { return data[i]; }
 	const T& operator[] (size_type i) const { return data[i]; }
-	Vec& operator= (const Vec&)
+	Vec& operator= (const Vec&);
 
 	iterator begin() { return data; }
 	iterator end() { return avail; }
@@ -26,16 +26,11 @@ public:
 	const_iterator begin() const { return data; }
 	const_iterator end() const { return avail; }
 
-	void push_back(T& val)
-	{
-		if (avail == limit)
-		{
-			grow();
-		}
-		unchecked_append(val);
-	}
+	void push_back(T& val);
+
 
 private:
+
 	iterator data;
 	iterator avail;
 	iterator limit;
@@ -62,3 +57,5 @@ Vec<T>& Vec<T>::operator= (const Vec& rhs)
 	}
 	return *this;
 }
+
+
